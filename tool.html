@@ -6,9 +6,11 @@
 <title>WorkMark | Design Your Order</title>
 <link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+</head>
 
 <style>
 /* =====================================================================
@@ -98,7 +100,7 @@
 .tool-card{display:flex;
   align-items:center;
   gap:6px;border:1px solid #E7EAF0;
-  border-radius:4px;padding:8px;
+  border-radius:25px;padding:8px;
   background:#1c8fc8;
   text-align:left;
 
@@ -131,7 +133,13 @@
   white-space:nowrap
 }
 .tool-card .s{display:block;font-size:10.5px;color:#dedede;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tool-card .chev{color:#C4CBD8;flex-shrink:0;width:12px;height:12px}
+.tool-card .chev +{
+  
+  color:#ececed;
+  flex-shrink:0;
+ font-size:5rem;
+
+}
 .file-hidden{display:none}
 @media(min-width:400px){
   .tool-card{padding:10px 11px;gap:9px}
@@ -170,14 +178,28 @@
 .summary-row{display:flex;justify-content:space-between;padding:7px 0;font-size:14.5px;color:#374151}
 .summary-row.total{border-top:1px solid #E7EAF0;margin-top:6px;padding-top:12px;font-weight:700;color:#0B1F3A;font-size:19px}
 .terms{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:#6B7280;margin:14px 0}
-.submit-btn{width:100%;padding:16px;border:0;border-radius:10px;background:#FF6B00;color:#FFFFFF;font-weight:700;font-size:16.5px;display:flex;align-items:center;justify-content:center;gap:8px;transition:background-color .2s ease,transform .2s ease}
-.submit-btn:hover{background:#E85F00;transform:translateY(-2px)}
+.submit-btn{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:5px;
+  background:#1c8fc8;
+  color:#FFFFFF;
+  font-weight:700;
+  font-size:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:background-color .2s ease,transform .2s ease
+
+}
+.submit-btn:hover{background:#093145;transform:translateY(-2px)}
 .trust{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:18px;font-size:12.5px;color:#6B7280;text-align:center}
 .trust span{display:flex;align-items:center;gap:5px}
 
 @media(prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
-</head>
 
 <body>
 
@@ -266,14 +288,14 @@
           <button type="button" class="tool-card accent" id="btnUploadLogo">
             <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
             <span class="body"><span class="t">Upload Logo</span><span class="s">PNG, JPG, SVG</span></span>
-            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
           <input type="file" id="logoFile" class="file-hidden" accept="image/png,image/jpeg,image/svg+xml">
 
           <button type="button" class="tool-card" id="btnAddText">
             <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 6h14M12 6v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
             <span class="body"><span class="t">Add Text</span><span class="s">Your message here</span></span>
-            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
         </div>
 
@@ -282,13 +304,13 @@
           <button type="button" class="tool-card" id="btnLogoPosition">
             <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="1.6" fill="currentColor"/></svg></span>
             <span class="body"><span class="t">Position</span><span class="s" id="posLabel">Left chest</span></span>
-            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
 
           <button type="button" class="tool-card" id="btnSizesToggle" aria-expanded="false" aria-controls="sizesPanel">
             <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 8v8h18V8M7 8v3M11 8v3M15 8v3M19 8v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="body"><span class="t">Sizes &amp; Qty</span><span class="s" id="sizesSummary">Select sizes</span></span>
-            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
         </div>
 
@@ -605,21 +627,30 @@ function priceForQty(qty) {
 </script>
 
 
-<script >
+<script>
+/* ============ A. NAVBAR: mobile menu + scroll shadow ============ */
+(function () {
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('navBurger');
+  var menu = document.getElementById('navMenu');
+  if (!nav || !burger || !menu) return;
 
+  function setMenu(open) {
+    menu.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
 
-(function(){
-    var t=document.querySelector('.ptrack'),p=document.getElementById('pPrev'),n=document.getElementById('pNext');
-    if(!t||!p||!n)return;
-    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    function step(){var c=t.querySelector('.pcard');return c?c.offsetWidth+18:300}
-    function upd(){p.disabled=t.scrollLeft<=4;n.disabled=t.scrollLeft>=t.scrollWidth-t.clientWidth-4}
-    p.addEventListener('click',function(){t.scrollBy({left:-step(),behavior:reduce?'auto':'smooth'})});
-    n.addEventListener('click',function(){t.scrollBy({left:step(),behavior:reduce?'auto':'smooth'})});
-    t.addEventListener('scroll',upd,{passive:true});
-    window.addEventListener('resize',upd);
-    upd();
-  })();
+  burger.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+  menu.addEventListener('click', function (e) { if (e.target.tagName === 'A') setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', function (e) { if (!nav.contains(e.target)) setMenu(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth >= 960) setMenu(false); });
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+})();
 </script>
 
 </body>
