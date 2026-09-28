@@ -6,6 +6,9 @@
 <title>WorkMark | Custom branded workwear, shirts, caps and mugs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -230,6 +233,365 @@ img{display:block;max-width:100%}
   }, { passive: true });
 })();
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+.products{
+  padding: 30px 5px;
+  background: #FAFBFD;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+.products .in {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.phead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 24px;
+  margin-bottom: 28px;
+}
+.phead h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.5px;
+}
+.phead p {
+  margin-top: 6px;
+  font-size: 16px;
+  color: #64748B;
+}
+.phint {
+
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0fa9c1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.ptrack {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 6px 24px 28px;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.ptrack::-webkit-scrollbar { display: none; }
+
+.pcard {
+  flex: 0 0 80%;
+  max-width: 300px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+.pcard:hover {
+
+  border-color: #CBD5E1;
+  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+}
+
+/* Reduced height image container using a landscape ratio */
+.pimg {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #F1F5F9;
+  overflow: hidden;
+}
+.pimg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.pcard:hover .pimg img {
+  transform: scale(1.05);
+}
+
+.pbadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgb(8, 28, 72);
+  backdrop-filter: blur(4px);
+  color: #FFF;
+  font-size: 7px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 30px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.pbody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+}
+.pbody h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0F172A;
+}
+.pbody p {
+  margin: 4px 0 16px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #64748B;
+  flex-grow: 1;
+}
+
+.pfoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #F1F5F9;
+}
+.pprice {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+}
+.pprice small {
+  display: inline;
+  font-size: 11px;
+  font-weight: 500;
+  color: #94A3B8;
+  margin-right: 3px;
+  text-transform: lowercase;
+}
+
+.pgo {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #148dc9;
+  color: #ebeeef;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.25s ease;
+}
+.pcard:hover .pgo {
+  background: #02111e;
+  color: #FFF;
+  transform: translateX(3px);
+}
+
+.pnav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 24px;
+}
+.pbtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  background: rgb(8, 28, 72);
+  color: #ffffff;
+  font-size: 17px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+.pbtn:hover:not(:disabled) {
+  background: #0F172A;
+  border-color: #0f6db0;
+  color: #fff;
+}
+.pbtn:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+@media(min-width: 600px) {
+  .pcard { flex-basis: 45%; max-width: 320px; }
+}
+@media(min-width: 960px) {
+  .products { padding: 80px 0 100px; }
+  .phint { display: none; }
+  .ptrack {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    overflow: visible;
+    padding: 6px 24px 0;
+  }
+  .pcard { max-width: none; }
+  .pnav { 
+    display: none;
+ }
+}
+
+</style>
+
+
+<section class="products" id="products">
+  <div class="in">
+    <div class="phead">
+      <div>
+        <h2>Our Products</h2>
+        <p>Custom branded merchandise for every team and industry.</p>
+      </div>
+      <span class="phint" aria-hidden="true">Swipe &rarr;</span>
+    </div>
+
+    <div class="ptrack">
+      <a href="order.html#design" class="pcard">
+        <div class="pimg">
+          <span class="pbadge">Best Seller</span>
+          <img src="workmarklogo.webp" alt="White T-shirt with a logo" width="600" height="600" loading="lazy">
+        </div>
+        <div class="pbody">
+          <h3>T-Shirts</h3>
+          <p>Comfortable, durable and perfect for everyday wear.</p>
+          <div class="pfoot">
+            <span class="pprice"><small>from</small>R120</span>
+            <span class="pgo" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="order.html#design" class="pcard">
+        <div class="pimg">
+          <img src="workmarklogo.webp" alt="Black cap with a logo" width="600" height="600" loading="lazy">
+        </div>
+        <div class="pbody">
+          <h3>Caps</h3>
+          <p>Keep your brand on heads on and off site.</p>
+          <div class="pfoot">
+            <span class="pprice"><small>from</small>R85</span>
+            <span class="pgo" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="order.html#design" class="pcard">
+        <div class="pimg">
+          <span class="pbadge">Heavy Duty</span>
+          <img src="workmarklogo.webp" alt="Navy and orange workwear overall" width="600" height="600" loading="lazy">
+        </div>
+        <div class="pbody">
+          <h3>Workwear</h3>
+          <p>Built for tough jobs and long days.</p>
+          <div class="pfoot">
+            <span class="pprice"><small>from</small>R250</span>
+            <span class="pgo" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="order.html#design" class="pcard">
+        <div class="pimg">
+          <img src="workmarklogo.webp" alt="White mug with a logo" width="600" height="600" loading="lazy">
+        </div>
+        <div class="pbody">
+          <h3>Mugs</h3>
+          <p>Great for offices, teams and client gifts.</p>
+          <div class="pfoot">
+            <span class="pprice"><small>from</small>R70</span>
+            <span class="pgo" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="pnav">
+      <button type="button" class="pbtn" id="pPrev" aria-label="Previous product"><i class="fa-solid fa-chevron-left"></i></button>
+      <button type="button" class="pbtn" id="pNext" aria-label="Next product"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var t=document.querySelector('.ptrack'),p=document.getElementById('pPrev'),n=document.getElementById('pNext');
+  if(!t||!p||!n)return;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function step(){var c=t.querySelector('.pcard');return c?c.offsetWidth+18:300}
+  function upd(){p.disabled=t.scrollLeft<=4;n.disabled=t.scrollLeft>=t.scrollWidth-t.clientWidth-4}
+  p.addEventListener('click',function(){t.scrollBy({left:-step(),behavior:reduce?'auto':'smooth'})});
+  n.addEventListener('click',function(){t.scrollBy({left:step(),behavior:reduce?'auto':'smooth'})});
+  t.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd);
+  upd();
+})();
+</script>
+
+
+
+
+
 
 </body>
 </html>
