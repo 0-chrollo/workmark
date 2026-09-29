@@ -37,7 +37,9 @@
       <a href="#pricing">Bulk pricing</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a href="order.html" class="btn btn-orange btn-sm nav-cta">Order Now</a>
+    <a href="order.html" class="btn btn-orange btn-sm nav-cta">Shop
+      <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> 
+    </a>
   </div>
 </header>
 
@@ -425,14 +427,46 @@
   </div>
 </section>
 
-<scripts src="scripts.js">
-
-</scripts>
 
 
 
-
-
+<script>
+(function(){
+  var t = document.querySelector('.ptrack');
+  var p = document.getElementById('pPrev');
+  var n = document.getElementById('pNext');
+  
+  if(!t || !p || !n) return;
+  
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  
+  function step() {
+    var c = t.querySelector('.pcard');
+    // Card width + the gap between cards (18px)
+    return c ? c.offsetWidth + 18 : 300;
+  }
+  
+  function upd() {
+    // Disable/enable buttons based on scroll position
+    p.disabled = t.scrollLeft <= 4;
+    n.disabled = t.scrollLeft >= t.scrollWidth - t.clientWidth - 4;
+  }
+  
+  p.addEventListener('click', function(){
+    t.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' });
+  });
+  
+  n.addEventListener('click', function(){
+    t.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' });
+  });
+  
+  t.addEventListener('scroll', upd, { passive: true });
+  window.addEventListener('resize', upd);
+  
+  // Run on load
+  upd();
+})();
+</script>
 
 </body>
 </html>
