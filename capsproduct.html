@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Custom Cap Designer | WorkMark</title>
 <!-- FontAwesome for Icons -->
+<link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Fabric.js for Canvas Customization -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/531/fabric.min.js"></script>
+<!-- Fabric.js for Canvas Customization (fixed version string: 5.3.0, not 531) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
 
 <style>
 .page{max-width:1120px;margin:0 auto;padding:12px 6px 60px}
@@ -58,7 +59,7 @@
 .stage canvas{position:absolute !important;top:50% !important;left:50% !important;transform:translate(-50%,-50%);max-width:100%}
 .stage-hint{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:11.5px;color:#8A93A3;pointer-events:none;z-index:2}
 
-.zoom-float{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:5px;background:#FFFFFF;border-radius:14px;padding:4px;box-shadow:0 2px 8px rgba(11,31,58,.14)}
+.zoom-float{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:5px;background:#FFFFFF;border-radius:14px;padding:4px;box-shadow:0 2px 8px rgba(11,31,58,.14);z-index:3}
 .zoom-btn{width:28px;height:28px;border-radius:50%;border:0;background:#FFFFFF;font-size:15px;color:#0B1F3A;cursor:pointer;transition:background-color .2s ease,transform .2s ease}
 .zoom-btn:hover{background:#F0F2F6;transform:scale(1.08)}
 
@@ -104,6 +105,7 @@
   justify-content: center;
   flex-shrink: 0;
   border-radius: 50%;
+  font-size: 13px;
 }
 .tool-card.accent .ic{background:#04a93b;color:#fefefe;border: 1px solid white;}
 .tool-card .body{flex:1;min-width:0;overflow:hidden}
@@ -113,7 +115,7 @@
 
 @media(min-width:400px){
   .tool-card{border-radius: 35px;padding:10px 11px;gap:9px}
-  .tool-card .ic{width:30px;height:30px}
+  .tool-card .ic{width:30px;height:30px;font-size:15px}
   .tool-card .t{font-size:13px}
   .tool-card .s{font-size:11px}
 }
@@ -170,16 +172,55 @@
 </head>
 <body>
 
-<div class="page">
-  <div class="intro">
-    <h2>Customize Your Caps</h2>
-    <p>Add your logo, choose cap colors, and set your quantities below.</p>
-  </div>
+ 
+
+
+
+<header class="nav" id="nav">
+    <div class="nav-inner">
+      <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
   
-  <!-- Switch between product templates -->
+      <a href="#top" class="nav-logo" aria-label="WorkMark home">
+        <img
+          src="wmlogo.png"
+          alt=""
+          width="36" height="36"
+          onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22%3E%3Crect width=%2240%22 height=%2240%22 rx=%228%22 fill=%22%23FF6B00%22/%3E%3Cpath d=%22M8 12l5 16 7-11 7 11 5-16%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%224%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E';">
+        <span>Work<b>Mark</b></span>
+      </a>
+  
+      <nav class="nav-menu" id="navMenu" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="#products">Products</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Bulk pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#buy-product" class="btn btn-orange btn-sm nav-cta">Order Now
+        <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> 
+      </a>
+    </div>
+  </header>
+
+
+
+
+<div class="page">
+
+  <div class="intro">
+    <h2>Design Your Order</h2>
+    <p>Add your logo, choose your options. We'll confirm the final price fast.</p>
+    
+  </div>
+ 
+  <!-- Links to the two separate order pages: this page (design it yourself)
+       and client-logo.html (send us your logo). Kept outside the editor
+       panel since it's a page-level choice, not a design tool control. -->
   <div class="page-switch">
-    <a href="tshirtproduct.html">T-Shirts</a>
-    <a href="capsproduct.html" aria-current="page">Caps</a>
+    <a href="design.html" aria-current="page">Design Yourself</a>
+    <a href="#giveus">Give Us Your Logo</a>
   </div>
 
   <div class="cols">
@@ -196,9 +237,10 @@
         <div class="stage-box">
           <div class="stage-row">
             <div class="stage" id="stage">
-              <!-- Cap product image -->
-              <img class="product-img" id="productImg" src="cap-front.png" alt="Cap preview">
-              <p class="img-fallback" id="imgFallback" style="display:none"></p>
+              <!-- Cap product image. Replace caps.webp / capsback.webp with your real photos,
+                   placed in the same folder as this file (or update the paths). -->
+              <img class="product-img" id="productImg" src="caps.webp" alt="Cap preview">
+              <p class="img-fallback" id="imgFallback" style="display:none">Add caps.webp to this folder to show the real product photo here</p>
               <canvas id="canvas" width="300" height="360"></canvas>
               <p class="stage-hint" id="stageHint">Tap Upload Logo to add your design</p>
               <div class="zoom-float">
@@ -206,7 +248,7 @@
                 <button type="button" class="zoom-btn" id="zoomOut" aria-label="Zoom out">&minus;</button>
               </div>
             </div>
-            
+
             <div class="color-col">
               <span class="color-label">Colour</span>
               <button type="button" class="swatch active" style="background:#1B3A66" data-color="navy" aria-label="Navy"></button>
@@ -233,25 +275,26 @@
 
         <!-- Tool row 1 -->
         <div class="tool-grid">
-          <button type="button" class="tool-card accent" id="btnUploadLogo">
+          <!-- Upload Logo: native label wrapper, no JS needed to open the file picker -->
+          <label class="tool-card accent" style="cursor: pointer;">
             <span class="ic"><i class="fa-solid fa-cloud-arrow-up"></i></span>
             <span class="body"><span class="t">Upload Logo</span><span class="s">PNG, JPG, SVG</span></span>
-          </button>
-          <input type="file" id="logoFile" class="file-hidden" accept="image/png,image/jpeg,image/svg+xml">
-        
+            <input type="file" id="logoFile" class="file-hidden" accept="image/png,image/jpeg,image/svg+xml">
+          </label>
+
           <button type="button" class="tool-card" id="btnAddText">
             <span class="ic"><i class="fa-solid fa-font"></i></span>
             <span class="body"><span class="t">Add Text</span><span class="s">Your message here</span></span>
           </button>
         </div>
-        
+
         <!-- Tool row 2 -->
         <div class="tool-grid">
           <button type="button" class="tool-card" id="btnLogoPosition">
             <span class="ic"><i class="fa-solid fa-bullseye"></i></span>
             <span class="body"><span class="t">Position</span><span class="s" id="posLabel">Front Panel</span></span>
           </button>
-        
+
           <button type="button" class="tool-card" id="btnSizesToggle" aria-expanded="false" aria-controls="sizesPanel">
             <span class="ic"><i class="fa-solid fa-hat-cowboy"></i></span>
             <span class="body"><span class="t">Quantity</span><span class="s" id="sizesSummary">Set total</span></span>
@@ -275,6 +318,7 @@
 
     <!-- RIGHT: DETAILS + SUMMARY -->
     <div>
+      <p id="buy-product"></p>
       <div class="panel">
         <div class="step-label"><span class="step-num">2</span>Your details</div>
         <div class="form-grid">
@@ -295,7 +339,7 @@
           <span>This is an estimate. Final price is confirmed after checking your design.</span>
         </label>
         <button type="button" class="submit-btn" id="submitOrder">
-          Place Order <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i> 
+          Place Order <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
         </button>
         <div class="trust">
           <span>&#10003; Free mockup</span>
@@ -315,10 +359,7 @@ var CONFIG = {
     { min: 10, price: 95 },
     { min: 1,  price: 110 }
   ],
-  deliveryFee: 120,
-  imagePath: function (colour, side) {
-    return 'cap-' + side + '.png';
-  }
+  deliveryFee: 120
 };
 
 function priceForQty(qty) {
@@ -328,161 +369,224 @@ function priceForQty(qty) {
   return 0;
 }
 
-/* STAGE CONTROLS */
-(function () {
+/* FABRIC.JS & INTERACTION LOGIC */
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.fabric) {
+    console.error('Fabric.js did not load. Check the <script> tag URL in <head>.');
+    return;
+  }
+
+  var canvasEl = document.getElementById('canvas');
+  var canvas = new fabric.Canvas('canvas', { selection: true, backgroundColor: null });
+  var W = 300, H = 360;
+
+  // Each side can have its own logo/text placement. Adjust these if the
+  // front and back photos need the design centred in different spots.
+  var printAreas = {
+    front: { left: 100, top: 130, width: 100, height: 70 },
+    back:  { left: 100, top: 130, width: 100, height: 70 }
+  };
+
+  // Saved design per side, filled in as the customer switches sides.
+  // Starts empty: neither side has a design yet.
+  var sideDesigns = { front: null, back: null };
+  var currentSide = 'front';
+  var stageHint = document.getElementById('stageHint');
+
+  // Remembers the last uploaded logo. If the customer switches to a side
+  // that has no design of its own yet, that logo is placed there
+  // automatically. They can delete it (Delete selected) if they don't
+  // want it on that side, or upload a different file to replace it.
+  var lastLogoDataURL = null;
+
+  function placeLogoOnCanvas(dataURL) {
+    var area = printAreas[currentSide];
+    fabric.Image.fromURL(dataURL, function (img) {
+      var scale = 70 / img.width;
+      img.set({
+        left: area.left + area.width / 2,
+        top: area.top + area.height / 2,
+        originX: 'center', originY: 'center',
+        scaleX: scale, scaleY: scale,
+        cornerColor: '#FF6B00', cornerStyle: 'circle', transparentCorners: false
+      });
+      canvas.add(img);
+      canvas.setActiveObject(img);
+      updateHint();
+    });
+  }
+
+  function addGuide(side) {
+    var area = printAreas[side];
+    var guide = new fabric.Rect({
+      left: area.left, top: area.top,
+      width: area.width, height: area.height,
+      fill: 'transparent', stroke: '#0B1F3A', strokeDashArray: [5, 4],
+      opacity: 0.35, selectable: false, evented: false,
+      excludeFromExport: true // keeps the guide out of saved/loaded designs
+    });
+    canvas.add(guide);
+    canvas.sendToBack(guide);
+  }
+
+  function updateHint() {
+    var hasDesign = canvas.getObjects().some(function (o) { return o.selectable !== false; });
+    stageHint.style.display = hasDesign ? 'none' : '';
+  }
+
+  // Save whatever is currently on the canvas as that side's design
+  // (the guide box is skipped automatically via excludeFromExport).
+  function captureSide(side) {
+    var json = canvas.toJSON();
+    sideDesigns[side] = json.objects.length ? JSON.stringify(json) : null;
+  }
+
+  // Load a side's saved design. If it has no design of its own yet,
+  // automatically carry over the last uploaded logo instead of leaving
+  // it blank, so the customer doesn't have to upload it twice.
+  function restoreSide(side) {
+    if (sideDesigns[side]) {
+      canvas.loadFromJSON(sideDesigns[side], function () {
+        addGuide(side);
+        canvas.renderAll();
+        updateHint();
+      });
+    } else {
+      canvas.clear();
+      addGuide(side);
+      if (lastLogoDataURL) placeLogoOnCanvas(lastLogoDataURL);
+      updateHint();
+    }
+  }
+
+  addGuide(currentSide);
+  updateHint();
+
+  // Front / Back View Switch, with a fallback message if the photo file is missing
+  var productImg = document.getElementById('productImg');
+  var imgFallback = document.getElementById('imgFallback');
   var sideFront = document.getElementById('sideFront');
   var sideBack = document.getElementById('sideBack');
   var posLabel = document.getElementById('posLabel');
 
+  function setProductImage(src, fallbackText) {
+    productImg.classList.remove('hidden');
+    imgFallback.style.display = 'none';
+    productImg.onerror = function () {
+      productImg.classList.add('hidden');
+      imgFallback.textContent = fallbackText;
+      imgFallback.style.display = '';
+    };
+    productImg.src = src;
+  }
+
+  function switchSide(newSide, imgSrc, imgFallbackText, positionLabel) {
+    if (newSide === currentSide) return;
+    captureSide(currentSide);   // remember what's on the side we're leaving
+    currentSide = newSide;
+    posLabel.textContent = positionLabel;
+    setProductImage(imgSrc, imgFallbackText);
+    restoreSide(currentSide);   // bring back that side's own design (or blank)
+  }
+
   sideFront.addEventListener('click', function () {
-    sideFront.classList.add('active'); sideBack.classList.remove('active');
-    posLabel.textContent = 'Front Panel';
-    if (window.WM_setSide) window.WM_setSide('front');
-  });
-  sideBack.addEventListener('click', function () {
-    sideBack.classList.add('active'); sideFront.classList.remove('active');
-    posLabel.textContent = 'Back Strap';
-    if (window.WM_setSide) window.WM_setSide('back');
+    sideFront.classList.add('active');
+    sideBack.classList.remove('active');
+    switchSide('front', 'caps.webp', 'Add caps.webp to this folder to show the real product photo here', 'Front Panel');
   });
 
+  sideBack.addEventListener('click', function () {
+    sideBack.classList.add('active');
+    sideFront.classList.remove('active');
+    switchSide('back', 'capsback.webp', 'Add capsback.webp to this folder to show the real product photo here', 'Back Strap');
+  });
+
+  // Color Swatches
   var swatches = document.querySelectorAll('.swatch');
   swatches.forEach(function (sw) {
     sw.addEventListener('click', function () {
       swatches.forEach(function (s) { s.classList.remove('active'); });
       sw.classList.add('active');
-      if (window.WM_setColor) window.WM_setColor(sw.getAttribute('data-color'));
+      // If you want colour-specific images later, swap productImg.src here per data-color
     });
   });
 
+  // Print Method Toggles
   var methodPrint = document.getElementById('methodPrint');
   var methodEmb = document.getElementById('methodEmb');
   methodPrint.addEventListener('click', function () { methodPrint.classList.add('active'); methodEmb.classList.remove('active'); });
   methodEmb.addEventListener('click', function () { methodEmb.classList.add('active'); methodPrint.classList.remove('active'); });
 
+  // Position button cycle
   document.getElementById('btnLogoPosition').addEventListener('click', function () {
     var opts = ['Front Panel', 'Left Side', 'Right Side', 'Back Strap'];
     var i = opts.indexOf(posLabel.textContent);
     posLabel.textContent = opts[(i + 1) % opts.length];
   });
 
+  // Quantity Panel Toggle
   var sizesToggleBtn = document.getElementById('btnSizesToggle');
   var sizesPanel = document.getElementById('sizesPanel');
   sizesToggleBtn.addEventListener('click', function () {
     var open = sizesPanel.classList.toggle('open');
     sizesToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-})();
 
-/* LOGO EDITOR (Fabric.js) */
-(function () {
-  var canvasEl = document.getElementById('canvas');
-  if (!window.fabric || !canvasEl) return;
-
-  var canvas = new fabric.Canvas('canvas', { selection: true, backgroundColor: null });
-  var W = 300, H = 360;
-  var currentSide = 'front';
-  var currentColor = 'navy';
-  var printArea = { left: 100, top: 130, width: 100, height: 70 };
-  var guide = null;
-
-  var productImg = document.getElementById('productImg');
-  var imgFallback = document.getElementById('imgFallback');
-  var SINGLE_TEST_IMAGE = 'cap-front.png';
-
-  function updateProductPhoto() {
-    var src = CONFIG.imagePath(currentColor, currentSide);
-    productImg.classList.remove('hidden');
-    imgFallback.style.display = 'none';
-
-    productImg.onerror = function () {
-      productImg.onerror = function () {
-        productImg.classList.add('hidden');
-        imgFallback.textContent = 'Add ' + src + ' to the images folder';
-        imgFallback.style.display = '';
-      };
-      productImg.src = SINGLE_TEST_IMAGE;
-    };
-    productImg.src = src;
-  }
-
-  function drawGuide() {
-    if (guide) canvas.remove(guide);
-    guide = new fabric.Rect({
-      left: printArea.left, top: printArea.top,
-      width: printArea.width, height: printArea.height,
-      fill: 'transparent', stroke: '#0B1F3A', strokeDashArray: [5, 4],
-      opacity: 0.35, selectable: false, evented: false
-    });
-    canvas.add(guide);
-    canvas.sendToBack(guide);
-  }
-
-  updateProductPhoto();
-  drawGuide();
-
-  window.WM_setColor = function (colourName) { currentColor = colourName; updateProductPhoto(); };
-  window.WM_setSide = function (side) { currentSide = side; updateProductPhoto(); drawGuide(); };
-
-  document.getElementById('btnUploadLogo').addEventListener('click', function () {
-    document.getElementById('logoFile').click();
-  });
+  // Logo File Upload (native label trigger, no click() call needed)
   document.getElementById('logoFile').addEventListener('change', function (e) {
     var file = e.target.files[0];
     if (!file) return;
     var reader = new FileReader();
     reader.onload = function (ev) {
-      fabric.Image.fromURL(ev.target.result, function (img) {
-        var scale = 70 / img.width;
-        img.set({
-          left: printArea.left + printArea.width / 2,
-          top: printArea.top + printArea.height / 2,
-          originX: 'center', originY: 'center',
-          scaleX: scale, scaleY: scale,
-          cornerColor: '#FF6B00', cornerStyle: 'circle', transparentCorners: false
-        });
-        canvas.add(img);
-        canvas.setActiveObject(img);
-        document.getElementById('stageHint').style.display = 'none';
-      });
+      lastLogoDataURL = ev.target.result;
+      placeLogoOnCanvas(lastLogoDataURL);
     };
     reader.readAsDataURL(file);
   });
 
+  // Add Text
   document.getElementById('btnAddText').addEventListener('click', function () {
+    var area = printAreas[currentSide];
     var text = new fabric.IText('Your Text', {
-      left: printArea.left + printArea.width / 2,
-      top: printArea.top + printArea.height / 2,
+      left: area.left + area.width / 2,
+      top: area.top + area.height / 2,
       originX: 'center', originY: 'center',
-      fontFamily: 'Barlow, Arial, sans-serif',
+      fontFamily: 'Arial, sans-serif',
       fontWeight: '600', fontSize: 16,
       fill: '#0B1F3A',
       cornerColor: '#FF6B00', cornerStyle: 'circle', transparentCorners: false
     });
     canvas.add(text);
     canvas.setActiveObject(text);
-    document.getElementById('stageHint').style.display = 'none';
+    updateHint();
   });
 
+  // Zoom Controls
   document.getElementById('zoomIn').addEventListener('click', function () {
     var o = canvas.getActiveObject();
     if (o) { o.scale(o.scaleX * 1.1); canvas.requestRenderAll(); }
   });
+
   document.getElementById('zoomOut').addEventListener('click', function () {
     var o = canvas.getActiveObject();
     if (o) { o.scale(Math.max(o.scaleX * 0.9, 0.15)); canvas.requestRenderAll(); }
   });
+
   document.getElementById('btnDelete').addEventListener('click', function () {
     var o = canvas.getActiveObject();
     if (o) canvas.remove(o);
   });
+
   document.getElementById('btnUndo').addEventListener('click', function () {
     var objs = canvas.getObjects().filter(function (o) { return o.selectable !== false; });
     if (objs.length) canvas.remove(objs[objs.length - 1]);
   });
+
   document.getElementById('btnReset').addEventListener('click', function () {
     if (!confirm('Remove your logo and text and start again?')) return;
     canvas.getObjects().filter(function (o) { return o.selectable !== false; }).forEach(function (o) { canvas.remove(o); });
-    document.getElementById('stageHint').style.display = '';
+    sideDesigns[currentSide] = null; // also clear the saved version for this side
+    updateHint();
   });
 
   function fitCanvas() {
@@ -493,12 +597,10 @@ function priceForQty(qty) {
   }
   window.addEventListener('resize', fitCanvas);
   fitCanvas();
+});
 
-  window.WM_getPreviewDataURL = function () { return canvas.toDataURL({ format: 'png' }); };
-})();
-
-/* QUANTITY & PRICING */
-(function () {
+/* QUANTITY & PRICING CALCULATOR */
+document.addEventListener('DOMContentLoaded', function () {
   var inputs = document.querySelectorAll('#sizeGrid input');
   var totalEl = document.getElementById('sizeTotal');
   var sizesSummary = document.getElementById('sizesSummary');
@@ -519,10 +621,10 @@ function priceForQty(qty) {
   }
   inputs.forEach(function (i) { i.addEventListener('input', recalc); });
   recalc();
-})();
+});
 
-/* SUBMIT */
-(function () {
+/* ORDER SUBMISSION */
+document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('submitOrder').addEventListener('click', function () {
     var required = ['fName', 'fBiz', 'fPhone', 'fEmail', 'fArea'];
     var missing = required.some(function (id) { return !document.getElementById(id).value.trim(); });
@@ -535,8 +637,40 @@ function priceForQty(qty) {
 
     alert('Cap order details ready to submit!');
   });
-})();
+});
 </script>
+
+
+
+
+<script>
+  /* ============ A. NAVBAR: mobile menu + scroll shadow ============ */
+  (function () {
+    var nav = document.getElementById('nav');
+    var burger = document.getElementById('navBurger');
+    var menu = document.getElementById('navMenu');
+    if (!nav || !burger || !menu) return;
+  
+    function setMenu(open) {
+      menu.classList.toggle('open', open);
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+  
+    burger.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function (e) { if (e.target.tagName === 'A') setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+    document.addEventListener('click', function (e) { if (!nav.contains(e.target)) setMenu(false); });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 960) setMenu(false); });
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+  })();
+  
+  
+  </script>
+  
 
 </body>
 </html>
