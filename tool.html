@@ -71,10 +71,14 @@
   font-size:13.5px;
   color:#374151;
   text-decoration:none;
-  transition:border-color .2s ease,background-color .2s ease,color .2s ease
+  transition:border-color .2s ease,background-color .2s ease,color .2s ease;
+  border: 1px solid #e7eaf05a;
+ 
+ box-shadow: 0 4px 6px -1px rgba(11, 31, 58, 0.127), 0 2px 4px -2px rgba(11, 31, 58, 0.1);
+
 
 }
-.page-switch a[aria-current="page"]{border: 2px solid #15a0dbc3; background:#092c49;color:#e0e2e4}
+.page-switch a[aria-current="page"]{border: 2px solid #a6d4e8; background:#092c49;color:#e0e2e4}
 .page-switch a:not([aria-current="page"]):hover{border-color:#B9C0CC}
 /* ============ 5. STAGE ============ */
 .stage-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
@@ -116,30 +120,45 @@
 
 /* ============ 6. TOOL CARDS ============ */
 .tool-grid{display:grid;gap:7px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:10px}
-.tool-card{display:flex;
-  align-items:center;
-  gap:6px;border:1px solid #E7EAF0;
-  border-radius:25px;padding:8px;
-  background:#1c8fc8;
-  text-align:left;
 
-  min-width:0;
-  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease
+.tool-card{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e7eaf05a;
+  border-radius: 25px;
+  padding: 8px;
+  background: #1c8fc8;
+  text-align: left;
+  min-width: 0;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  
+  /* Put your default base shadow here */
+   border: 1px solid #e7eaf05a;
+ 
+   box-shadow: 0 4px 6px -1px rgba(11, 31, 58, 0.399), 0 2px 4px -2px rgba(11, 31, 58, 0.1);
 
 
+  }
+
+.tool-card:hover{
+  border-color: #247099;
+  /* Enhanced shadow on hover to make it lift */
+  box-shadow: 0 8px 20px rgba(11, 31, 58, 0.18);
+  transform: translateY(-1px);
 }
-.tool-card:hover{border-color:#FF6B00;box-shadow:0 4px 14px rgba(11,31,58,.08);transform:translateY(-1px)}
-.tool-card .ic{width:26px;
-  height:26px;
-  border-radius:0px;
-  background:#f3f3f3;
-  color:#093f4b;
-  display:flex;align-items:center;
-  justify-content:center;
-  flex-shrink:0}
-.tool-card .ic svg{width:14px;height:14px}
+
+.tool-card .ic{
+  width: 26px;
+  background: #f3f3f3;
+  color: #093f4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 /* Upload Logo gets its own accent colour so it stands out as the primary action */
-.tool-card.accent .ic{background:#04a93b;color:#fefefe}
+.tool-card.accent .ic{background:#04a93b;color:#fefefe; border: 1px solid white;}
 .tool-card .body{flex:1;min-width:0;overflow:hidden}
 .tool-card .t{
   display:block;
@@ -162,7 +181,13 @@
 .file-hidden{display:none}
 @media(min-width:400px){
   .tool-card{padding:10px 11px;gap:9px}
-  .tool-card .ic{width:30px;height:30px;border-radius:8px}
+
+  .tool-card .ic{
+    width:30px;
+    height:30px;
+    border-radius:25px
+  
+  }
   .tool-card .ic svg{width:16px;height:16px}
   .tool-card .t{font-size:13px}
   .tool-card .s{font-size:11px}
@@ -210,7 +235,11 @@
   align-items:center;
   justify-content:center;
   gap:8px;
-  transition:background-color .2s ease,transform .2s ease
+  transition:background-color .2s ease,transform .2s ease;
+  border: 1px solid #e7eaf05a;
+ 
+ box-shadow: 0 4px 6px -1px rgba(11, 31, 58, 0.399), 0 2px 4px -2px rgba(11, 31, 58, 0.138);
+
 
 }
 .submit-btn:hover{background:#093145;transform:translateY(-2px)}
@@ -317,29 +346,29 @@
         <!-- Tool row 1: upload / text -->
         <div class="tool-grid">
           <button type="button" class="tool-card accent" id="btnUploadLogo">
-            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <span class="ic"><i class="fa-solid fa-cloud-arrow-up"></i></span>
             <span class="body"><span class="t">Upload Logo</span><span class="s">PNG, JPG, SVG</span></span>
             <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
           <input type="file" id="logoFile" class="file-hidden" accept="image/png,image/jpeg,image/svg+xml">
-
+        
           <button type="button" class="tool-card" id="btnAddText">
-            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 6h14M12 6v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+            <span class="ic"><i class="fa-solid fa-font"></i></span>
             <span class="body"><span class="t">Add Text</span><span class="s">Your message here</span></span>
             <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
         </div>
-
+        
         <!-- Tool row 2: position / sizes (collapsible) -->
         <div class="tool-grid">
           <button type="button" class="tool-card" id="btnLogoPosition">
-            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="1.6" fill="currentColor"/></svg></span>
+            <span class="ic"><i class="fa-solid fa-bullseye"></i></span>
             <span class="body"><span class="t">Position</span><span class="s" id="posLabel">Left chest</span></span>
             <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
-
+        
           <button type="button" class="tool-card" id="btnSizesToggle" aria-expanded="false" aria-controls="sizesPanel">
-            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M3 8v8h18V8M7 8v3M11 8v3M15 8v3M19 8v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="ic"><i class="fa-solid fa-shirt"></i></span>
             <span class="body"><span class="t">Sizes &amp; Qty</span><span class="s" id="sizesSummary">Select sizes</span></span>
             <i class="fa-solid fa-chevron-right" style="color:white"></i>
           </button>
